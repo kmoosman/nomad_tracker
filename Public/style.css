@@ -1,3 +1,39 @@
-h1 {
-    color: red;
+.header {
+    text-align: center;
+    color: #4669C8;
+}
+
+#homepage_images {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+body {
+    background-color: #f9fafc;
+}
+
+.image_spacing {
+    margin: 0 10px;
+    border-radius: 3%;
+}
+
+.quote {
+    font-family: 'Indie Flower';
+    text-align: center;
+    color: #EA3474;
+    font-size: 1em;
+}
+
+#login_signup {
+    /* display: block; */
+    text-align: center;
+    justify-content: center;
+}
+
+.buttons {
+    margin: 0px 10px;
 }
