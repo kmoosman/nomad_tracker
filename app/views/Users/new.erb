@@ -1,26 +1,25 @@
-
-//Enter a new destinations
-<h1> Enter a new destination </h1>
+<h1 class="header"> New Location </h1>
 <div class="center_me">
     <card class="form">
-    <form method="post" action="/new">
+    <form method="post" action="/new" enctype="multipart/form-data">
         <section> 
-            <label class="block" for="location">Location</label>
-            <input class="block" type="text" name="location" id="location">
+            <label class="block" for="location_name">Location</label>
+            <input class="block" type="text" name="location_name" id="location_name">
         </section>
         <section> 
             <label class="block" for="dates">Dates</label>
             <input class="block" type="text" name="dates" id="dates">
         </section>
-        <section> 
-            //submit an image here
-        </section>
         <section class="block">
             <label class="block" for="price">Price</label>
             <input class="block" type="text" name="price" id="price">
         </section>
+        <section>
+            <label class="block" for="image_name">Image</label> 
+            <input type="file" name="image_name">
+        </section>
         <section class="block" style="text-align: center;">
-        <button class="btn btn-primary" type="submit" style="width: 50%; margin-top: 20px; padding: 5px;">Add Destination</button>
+        <button class="btn btn-primary" type="submit" style="width: 50%; margin-top: 20px; padding: 5px;">Add Location</button>
         </section>
     </form>
     </card>

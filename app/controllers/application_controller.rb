@@ -44,6 +44,29 @@ class ApplicationController < Sinatra::Base
       redirect to :"/#{@user.username}"
   end
 
+  get '/new' do 
+    erb :'/users/new'
+  end
+
+  post '/new' do 
+    
+    @filename = params[:image_name][:filename]
+    file = params[:image_name][:tempfile]
+    @location = Location.create(params)
+    @location.image_name = @filename
+    @location.save
+
+    File.open("./public/images/#{@filename}", 'wb') do |f|
+      f.write(file.read)
+    end
+
+
+  
+    
+  end
+
+
+
   get '/:slug' do
     @user = User.find_by_slug(params[:slug])
     erb :'/users/show'

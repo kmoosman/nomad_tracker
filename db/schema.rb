@@ -13,10 +13,10 @@
 
 ActiveRecord::Schema.define(version: 20190319050943) do
 
-  create_table "destinations", force: :cascade do |t|
-    t.string "location"
+  create_table "locations", force: :cascade do |t|
+    t.string "location_name"
     t.string "dates"
-    t.string "image_path"
+    t.string "image_name"
     t.string "price"
     t.string "user_id"
   end
