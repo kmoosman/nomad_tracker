@@ -29,6 +29,14 @@ body {
     font-size: 1em;
 }
 
+.username {
+    font-family: 'Indie Flower';
+    text-align: center;
+    color: #EA3474;
+    font-size: 1em;
+    margin-top: -7px
+}
+
 #login_signup {
     margin-top: 10px;
     text-align: center;
@@ -63,5 +71,18 @@ body {
     width: 50%;
     margin-top: 20px;
     padding: 5px;
+}
+
+#add_dest {
+    margin-bottom: 30px;
+    height: 60%;
+    width: 65px;
+    padding: 5px;
+}
+
+#destinations {
+    display: inline-block;
+    height: 100%;
+    margin-left: 2%;
 }
 

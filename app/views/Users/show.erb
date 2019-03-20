@@ -1,1 +1,11 @@
-<h1><%= @user.name %></h1>
+
+<h1 class="header"><%= @user.name %></h1> 
+<p class="username">@<%= @user.username %></p>
+
+
+<%# //List of destinations (bootstrap cards?) %>
+<div>
+    <h2 id="destinations">Destinations</h2> 
+    <a class="button btn btn-primary" id="add_dest" href="/login" role="button">Add</a>
+</div>
+<hr style="margin:-18px;">
