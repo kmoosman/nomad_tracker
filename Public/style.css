@@ -50,7 +50,6 @@ body {
 
 .block {
     display: block;
-    padding-top: 5px;
     width: 100%;
 }
 
@@ -59,4 +58,10 @@ body {
     justify-content: center;
 }
 
+
+.login_button {
+    width: 50%;
+    margin-top: 20px;
+    padding: 5px;
+}
 

@@ -1,4 +1,5 @@
 require './config/environment'
+require 'pry'
 
 class ApplicationController < Sinatra::Base
   # set :views, proc { File.join(root, '../views/') }
@@ -19,8 +20,15 @@ class ApplicationController < Sinatra::Base
     erb :'/Users/login'
   end
 
+  post '/login' do 
+    @user = User.create({email: params[:email], password: params[:password]})
+    binding.pry
+  end
+
   get '/sign-up' do
     erb :'/Users/sign_up'
   end
+
+
 
 end
