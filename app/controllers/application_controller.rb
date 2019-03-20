@@ -21,12 +21,32 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/login' do 
-    @user = User.create({email: params[:email], password: params[:password]})
-    binding.pry
+    @user = User.find_by(:email => params[:email])
+  	if @user && @user.authenticate(params[:password])
+      session["user_id"] = @user.id
+      redirect to "/#{@user.username}"
+    else
+      redirect to "/login"
+    end
   end
 
-  get '/sign-up' do
-    erb :'/Users/sign_up'
+  get '/signup' do
+    if Helpers.is_logged_in?(session)
+      redirect to '/login'
+    else 
+     erb :'/Users/sign_up'
+    end
+  end
+
+  post '/signup' do 
+      @user = User.create(params)
+      session["user_id"] = @user.id
+      redirect to :"/#{@user.username}"
+  end
+
+  get '/:slug' do
+    @user = User.find_by_slug(params[:slug])
+    erb :'/users/show'
   end
 
 

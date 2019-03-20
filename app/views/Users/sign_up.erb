@@ -1,1 +1,26 @@
-<h1> hello from the sign up page </h1>
+<h1 class="header"> Sign Up </h1> 
+<div class="center_me">
+    <card class="form">
+    <form method="post" action="/signup">
+        <section> 
+            <label class="block" for="name">Name </label>
+            <input class="block" type="text" name="name" id="name">
+        </section>
+        <section> 
+            <label class="block" for="email">Email </label>
+            <input class="block" type="text" name="email" id="email">
+        </section>
+        <section> 
+            <label class="block" for="email">Username </label>
+            <input class="block" type="text" name="username" id="username">
+        </section>
+        <section class="block">
+            <label class="block" for="password">Password </label>
+            <input class="block" type="password" name="password" id="password">
+        </section>
+        <section class="block" style="text-align: center;">
+        <button class="btn btn-primary" type="submit" style="width: 50%; margin-top: 20px; padding: 5px;">Sign up</button>
+        </section>
+    </form>
+    </card>
+</div>
