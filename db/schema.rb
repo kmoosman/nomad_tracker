@@ -14,7 +14,6 @@
 ActiveRecord::Schema.define(version: 20190319050943) do
 
   create_table "destinations", force: :cascade do |t|
-    t.string "name"
     t.string "location"
     t.string "dates"
     t.string "image_path"

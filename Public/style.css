@@ -1,6 +1,7 @@
 .header {
     text-align: center;
     color: #4669C8;
+    margin-top: 20px;
 }
 
 #homepage_images {
@@ -29,11 +30,33 @@ body {
 }
 
 #login_signup {
-    /* display: block; */
+    margin-top: 10px;
     text-align: center;
     justify-content: center;
 }
 
-.buttons {
-    margin: 0px 10px;
+.btn-primary {
+    margin: 10px;
+    width: 100px;
 }
+
+.form {
+    display: inline-block;
+    justify-content: center;
+    margin: 10px;
+    padding: 20px;
+    width: 25%;
+}
+
+.block {
+    display: block;
+    padding-top: 5px;
+    width: 100%;
+}
+
+.center_me {
+    display: flex;
+    justify-content: center;
+}
+
+
