@@ -71,10 +71,52 @@ class ApplicationController < Sinatra::Base
 
 
   get '/:slug' do
+    if !Helpers.is_logged_in?(session)
+      redirect to 'login'
+    end
     @user = User.find_by_slug(params[:slug])
     all_locations = Location.where("user_id = '1'")
     @locations = all_locations.order(:start_date)
     erb :'/users/show'
+  end
+
+  get '/:location_id/edit' do 
+    if !Helpers.is_logged_in?(session)
+      redirect to 'login'
+    end
+    @location = Location.find(params[:location_id])
+    erb :'/users/edit'
+  end
+
+
+  patch '/:location_id/edit' do
+    if !Helpers.is_logged_in?(session)
+      redirect to '/login'
+    else
+      @user = Helpers.current_user(session)
+      @location = Location.find(params[:location_id])
+      @location.update(params.except!(:_method, :location_id))
+      @location.save
+      redirect to "/#{@user.username}"
+    end
+
+  end
+
+
+  delete '/:location_id/delete' do
+    if Helpers.is_logged_in?(session)
+      @location = Location.find(params[:location_id])
+      @user = Helpers.current_user(session)
+      if @location.user == Helpers.current_user(session)
+        @location = Location.find_by_id(params[:location_id])
+        @location.delete
+        redirect to "/#{@user.username}"
+      else
+        redirect to '/login'
+      end
+    else
+      redirect to '/login'
+    end
   end
 
 

@@ -20,8 +20,9 @@
         <h5 class="card-title"><%= location.location_name %></h5>
     </div>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item">Dates: <%= location.start_date %></li>
+        <li class="list-group-item">Dates: <%= location.start_date %> - <%= location.end_date %></li>
         <li class="list-group-item">Cost: <%= location.price %></li>
+        <li style="list-style: none; text-align: center;"><a class="button btn btn-primary" href="/<%= location.id %>/edit" role="button">Edit</a></li>
     </ul>
     </div>
 </div>
