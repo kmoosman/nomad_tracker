@@ -1,0 +1,6 @@
+# User.create(name: "Katie Moosman", email: "moosman.katie@gmail.com", username: "kmoosman", password: "password1234")
+Location.create(location_name: "SLC, Utah", start_date: "02/15/2019", end_date: "03/03/2019", image_name: "snow_mounains_utah.jpg", price: "$0", user_id: "1") 
+Location.create(location_name: "Oak Harbor, Washington", start_date: "03/04/2019", end_date: "03/31/2019", image_name: "whidbey_island.jpg", price: "$1,500", user_id: "1")
+Location.create(location_name: "Twin Falls, Idaho", start_date: "03/03/2019", end_date: "03/03/2019", image_name: "twin_falls.JPG", price: "$115", user_id: "1")
+Location.create(location_name: "Las Vegas, Nevada", start_date: "01/13/2019", end_date: "01/19/2019", image_name: "vegas.JPG", price: "$0", user_id: "1")
+Location.create(location_name: "Austin, Texas", start_date: "01/20/2019", end_date: "02/14/2019", image_name: "austin_trees.JPG", price: "$2,000", user_id: "1")

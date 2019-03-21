@@ -86,3 +86,8 @@ body {
     margin-left: 2%;
 }
 
+.destination_cards {
+    display: inline;
+    /* margin: 10px; */
+}
+

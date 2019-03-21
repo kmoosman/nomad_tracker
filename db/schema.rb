@@ -15,7 +15,8 @@ ActiveRecord::Schema.define(version: 20190319050943) do
 
   create_table "locations", force: :cascade do |t|
     t.string "location_name"
-    t.string "dates"
+    t.string "start_date"
+    t.string "end_date"
     t.string "image_name"
     t.string "price"
     t.string "user_id"

@@ -26,7 +26,7 @@ class ApplicationController < Sinatra::Base
       session["user_id"] = @user.id
       redirect to "/#{@user.username}"
     else
-      redirect to "/login"
+      redirect to "/signup"
     end
   end
 
@@ -45,23 +45,26 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/new' do 
+    if !Helpers.is_logged_in?(session)
+      redirect to 'login'
+    end
     erb :'/users/new'
   end
 
   post '/new' do 
-    
+    @user = Helpers.current_user(session)
     @filename = params[:image_name][:filename]
     file = params[:image_name][:tempfile]
     @location = Location.create(params)
     @location.image_name = @filename
+    @location.user_id = @user.id
     @location.save
 
     File.open("./public/images/#{@filename}", 'wb') do |f|
       f.write(file.read)
     end
 
-
-  
+    redirect to "/#{@user.username}"
     
   end
 
@@ -69,6 +72,8 @@ class ApplicationController < Sinatra::Base
 
   get '/:slug' do
     @user = User.find_by_slug(params[:slug])
+    all_locations = Location.where("user_id = '1'")
+    @locations = all_locations.order(:start_date)
     erb :'/users/show'
   end
 
