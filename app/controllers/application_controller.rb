@@ -5,7 +5,6 @@ class ApplicationController < Sinatra::Base
   # set :views, proc { File.join(root, '../views/') }
 
   configure do
-    
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
@@ -17,6 +16,10 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/login' do
+    if Helpers.is_logged_in?(session)
+      @user = Helpers.current_user(session)
+      redirect :"/#{@user.username}"
+    end
     erb :'/Users/login'
   end
 
@@ -51,6 +54,15 @@ class ApplicationController < Sinatra::Base
     erb :'/users/new'
   end
 
+  get '/logout' do
+    if Helpers.is_logged_in?(session)
+      session.clear
+    else
+      redirect to :'/'
+    end
+    redirect to :'/'
+  end
+
   post '/new' do 
     @user = Helpers.current_user(session)
     @filename = params[:image_name][:filename]
@@ -63,12 +75,8 @@ class ApplicationController < Sinatra::Base
     File.open("./public/images/#{@filename}", 'wb') do |f|
       f.write(file.read)
     end
-
     redirect to "/#{@user.username}"
-    
   end
-
-
 
   get '/:slug' do
     if !Helpers.is_logged_in?(session)
@@ -118,6 +126,9 @@ class ApplicationController < Sinatra::Base
       redirect to '/login'
     end
   end
+
+
+
 
 
 

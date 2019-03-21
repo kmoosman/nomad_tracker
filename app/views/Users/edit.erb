@@ -1,7 +1,8 @@
 
+<a class="btn btn-link" href="/logout" role="button" style="float: right; margin: 30px 2% 0px 0px">Logout</a>
 <form action="/<%= @location.id %>/delete" method="post" >
         <div style="text-align: center">
-            <h1 style="text-align: center; color: #4669C8; margin: 20px 0px 0px 10px; display: inline-block; "><%= @location.location_name %></h1> 
+            <h1 style="text-align: center; color: #4669C8; margin: 20px 0px -10px 0px; display: inline-block; "><%= @location.location_name %></h1> 
             <input id="hidden" type="hidden" name="_method" value="delete"/>
             <button type="submit" class="btn btn-danger" style="width: 100px; margin: 0px 0px 18px 15px;">Delete</button>
         </div>
