@@ -92,3 +92,11 @@ body {
     /* margin: 10px; */
 }
 
+.flash{
+    padding: 5px;
+    font-weight: bold;
+    margin: 20px;
+    background: #ff7272;
+    color: white;
+  }
+

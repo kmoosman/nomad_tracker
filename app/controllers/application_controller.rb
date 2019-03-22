@@ -1,8 +1,11 @@
 require './config/environment'
+# require 'sinatra/flash'
 require 'pry'
+require 'sinatra/base'
+require 'sinatra/flash'
 
 class ApplicationController < Sinatra::Base
-  # set :views, proc { File.join(root, '../views/') }
+  register Sinatra::Flash
 
   configure do
     set :public_folder, 'public'
@@ -29,12 +32,14 @@ class ApplicationController < Sinatra::Base
       session["user_id"] = @user.id
       redirect to "/#{@user.username}"
     else
+      flash[:warning] = "We could not locate your account, please sign up!"
       redirect to "/signup"
     end
   end
 
   get '/signup' do
     if Helpers.is_logged_in?(session)
+      flash[:warning] = "You already have an account... time to login!"
       redirect to '/login'
     else 
      erb :'/Users/sign_up'
@@ -49,6 +54,7 @@ class ApplicationController < Sinatra::Base
 
   get '/new' do 
     if !Helpers.is_logged_in?(session)
+      flash[:warning] = "Slow down Sally, we need you to log in first!"
       redirect to 'login'
     end
     erb :'/users/new'
@@ -80,6 +86,7 @@ class ApplicationController < Sinatra::Base
 
   get '/:slug' do
     if !Helpers.is_logged_in?(session)
+      flash[:warning] = "Slow down Sally, we need you to log in first!"
       redirect to 'login'
     end
     @user = User.find_by_slug(params[:slug])
@@ -90,6 +97,7 @@ class ApplicationController < Sinatra::Base
 
   get '/:location_id/edit' do 
     if !Helpers.is_logged_in?(session)
+      flash[:warning] = "Woah there, you need to login before you can visit this page"
       redirect to 'login'
     end
     @location = Location.find(params[:location_id])
