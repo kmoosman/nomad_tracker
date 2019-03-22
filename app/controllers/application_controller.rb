@@ -47,9 +47,15 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/signup' do 
+    if !(params.has_value?(""))
       @user = User.create(params)
       session["user_id"] = @user.id
       redirect to :"/#{@user.username}"
+    else 
+      flash[:warning] = "Missing input, please complete each field before submitting"
+      redirect to '/signup'
+    end
+
   end
 
   get '/new' do 
@@ -70,18 +76,23 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/new' do 
-    @user = Helpers.current_user(session)
-    @filename = params[:image_name][:filename]
-    file = params[:image_name][:tempfile]
-    @location = Location.create(params)
-    @location.image_name = @filename
-    @location.user_id = @user.id
-    @location.save
+    if !(params.has_value?(""))
+      @user = Helpers.current_user(session)
+      @filename = params[:image_name][:filename]
+      file = params[:image_name][:tempfile]
+      @location = Location.create(params)
+      @location.image_name = @filename
+      @location.user_id = @user.id
+      @location.save
 
-    File.open("./public/images/#{@filename}", 'wb') do |f|
-      f.write(file.read)
+      File.open("./public/images/#{@filename}", 'wb') do |f|
+        f.write(file.read)
+      end
+      redirect to "/#{@user.username}"
+    else 
+      flash[:warning] = "Missing input, please complete each field before submitting"
+      redirect to '/new'
     end
-    redirect to "/#{@user.username}"
   end
 
   get '/:slug' do
@@ -93,6 +104,22 @@ class ApplicationController < Sinatra::Base
     all_locations = Location.where("user_id = '1'")
     @locations = all_locations.order(:start_date)
     erb :'/users/show'
+  end
+
+  delete '/:location_id/delete' do
+    if Helpers.is_logged_in?(session)
+      @location = Location.find(params[:location_id])
+      @user = Helpers.current_user(session)
+      if @location.user == Helpers.current_user(session)
+        @location = Location.find_by_id(params[:location_id])
+        @location.delete
+        redirect to "/#{@user.username}"
+      else
+        redirect to '/login'
+      end
+    else
+      redirect to '/login'
+    end
   end
 
   get '/:location_id/edit' do 
@@ -111,6 +138,7 @@ class ApplicationController < Sinatra::Base
     else
       @user = Helpers.current_user(session)
       @location = Location.find(params[:location_id])
+      if params
       @location.update(params.except!(:_method, :location_id))
       @location.save
       redirect to "/#{@user.username}"
@@ -118,26 +146,5 @@ class ApplicationController < Sinatra::Base
 
   end
 
-
-  delete '/:location_id/delete' do
-    if Helpers.is_logged_in?(session)
-      @location = Location.find(params[:location_id])
-      @user = Helpers.current_user(session)
-      if @location.user == Helpers.current_user(session)
-        @location = Location.find_by_id(params[:location_id])
-        @location.delete
-        redirect to "/#{@user.username}"
-      else
-        redirect to '/login'
-      end
-    else
-      redirect to '/login'
-    end
   end
-
-
-
-
-
-
 end
