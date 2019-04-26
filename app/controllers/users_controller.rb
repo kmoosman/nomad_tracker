@@ -82,3 +82,7 @@ class UsersController < ApplicationController
 
 
 end
+
+
+# get locations 
+# all locations for all user 

@@ -6,6 +6,11 @@ require 'sinatra/flash'
 
 class LocationsController < ApplicationController
 
+  get '/locations' do 
+    @locations = Location.all
+    erb :'/locations/index'
+  end
+
    get '/locations/new' do 
       if !Helpers.is_logged_in?(session)
         flash[:warning] = "Slow down Sally, we need you to log in first!"
@@ -14,7 +19,9 @@ class LocationsController < ApplicationController
         erb :'/locations/new'
     end
 
-    post '/locations/new' do 
+    post '/locations/new' do
+      Helpers.redirect_if_not_logged_in(session) 
+  
       if !(params.has_value?(""))
         @user = Helpers.current_user(session)
         @filename = params[:image_name][:filename]
@@ -36,20 +43,13 @@ class LocationsController < ApplicationController
 
 
     delete '/locations/:location_id/delete' do
-      if Helpers.is_logged_in?(session)
-        @location = Location.find(params[:location_id])
-        @user = Helpers.current_user(session)
-        if @location.user == Helpers.current_user(session)
-          @location = Location.find_by_id(params[:location_id])
-          @location.delete
-          redirect to "users/#{@user.slug}"
-          # redirect to  user slug not username
-        else
-          redirect to '/login'
-        end
-      else
-        redirect to '/login'
+      Helpers.redirect_if_not_logged_in(session)
+      @location = Location.find(params[:location_id])
+      @user = Helpers.current_user(session)
+      if @location.user == @user
+        @location.delete
       end
+      redirect to "users/#{@user.slug}"
     end
 
 
@@ -59,24 +59,38 @@ class LocationsController < ApplicationController
         redirect to 'login'
       end
       @location = Location.find(params[:location_id])
-      erb :'/locations/edit'
+      @user = Helpers.current_user(session)
+      if @location.user == @user
+        erb :'/locations/edit'
+      else 
+        flash[:warning] = "Unauthorized, this location doesn't belong to you!"
+        redirect to "users/#{@user.slug}"
+      end
     end
   
   
     patch '/locations/:location_id/edit' do
-      if !Helpers.is_logged_in?(session)
-        redirect to '/login'
-      else
-        @user = Helpers.current_user(session)
-        @location = Location.find(params[:location_id])
+      Helpers.redirect_if_not_logged_in(session)
+
+      @user = Helpers.current_user(session)
+      @location = Location.find(params[:location_id])
+      if @location.user == @user
         if params
-        @location.update(params.except!(:_method, :location_id))
-        @location.save
-        redirect to "users/#{@user.slug}"
+          @location.update(params.except!(:_method, :location_id))
+          @location.save
+          redirect to "users/#{@user.slug}"
+        else 
+          flash[:warning] = "Please fill out all of the location information"
+          redirect to "/locations/#{@location.id}/edit"
         end
-  
+      else 
+        flash[:warning] = "Unauthorized, this location doesn't belong to you!"
+        redirect to "users/#{@user.slug}"
       end
     end
+    
+
+    
 
 
 end

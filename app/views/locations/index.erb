@@ -1,0 +1,17 @@
+<% @locations.each do |location| %>
+<div style="display: inline-block">
+
+    <div class="card" style="width: 19rem;">
+    <img class="card-img-top" src="/images/<%= location.image_name %>" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title"><%= location.location_name %></h5>
+        <h3 class="card-title"><%= location.user.name %></h3>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Dates: <%= location.start_date %> - <%= location.end_date %></li>
+        <li class="list-group-item">Cost: <%= location.price %></li>
+        <li style="list-style: none; text-align: center;"><a class="button btn btn-primary" href="/locations/<%= location.id %>/edit" role="button">Edit</a></li>
+    </ul>
+    </div>
+</div>
+<% end %>
