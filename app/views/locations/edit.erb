@@ -1,6 +1,6 @@
 
 <a class="btn btn-link" href="/logout" role="button" style="float: right; margin: 30px 2% 0px 0px">Logout</a>
-<form action="/<%= @location.id %>/delete" method="post" >
+<form action="/locations/<%= @location.id %>/delete" method="post" >
     <input id="hidden" type="hidden" name="_method" value="delete"/>
         <div style="text-align: center">
             <h1 style="text-align: center; color: #4669C8; margin: 20px 0px -10px 0px; display: inline-block; "><%= @location.location_name %></h1> 
@@ -9,7 +9,7 @@
 </form>
 <hr>
 <div style="display: flex; justify-content: center; margin: 10px; ">
-<form action="/<%= @location.id %>/edit" method="post" >
+<form action="/locations/<%= @location.id %>/edit" method="post" >
     <input id="hidden" type="hidden" name="_method" value="patch"/>
     <div class="card" style="width: 35rem;">
     <img class="card-img-top" src="/images/<%= @location.image_name %>" alt="Card image cap">

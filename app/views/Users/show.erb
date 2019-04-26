@@ -3,7 +3,7 @@
 
 <div>
     <h2 id="destinations">Destinations</h2> 
-    <a class="button btn btn-primary" id="add_dest" href="/new" role="button">Add</a>
+    <a class="button btn btn-primary" id="add_dest" href="/locations/new" role="button">Add</a>
     <a class="btn btn-link" href="/logout" role="button" style="float: right; margin: 15px 2% 0 0">Logout</a>
 </div>
 <hr style="margin:-18px;">
@@ -20,7 +20,7 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item">Dates: <%= location.start_date %> - <%= location.end_date %></li>
         <li class="list-group-item">Cost: <%= location.price %></li>
-        <li style="list-style: none; text-align: center;"><a class="button btn btn-primary" href="/<%= location.id %>/edit" role="button">Edit</a></li>
+        <li style="list-style: none; text-align: center;"><a class="button btn btn-primary" href="/locations/<%= location.id %>/edit" role="button">Edit</a></li>
     </ul>
     </div>
 </div>
